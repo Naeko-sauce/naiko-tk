@@ -1,6 +1,6 @@
 package sy;
 
-import org.omg.SendingContext.RunTime;
+//import org.omg.SendingContext.RunTime;
 
 public class cpu {
     public static void main(String[] args) {
