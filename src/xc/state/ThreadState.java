@@ -1,5 +1,5 @@
 package xc.state;
-
+//测试
 public class ThreadState {
     public static void main(String[] args) throws InterruptedException {
         T t = new T();
