@@ -41,13 +41,17 @@ class  sellt extends Thread {
         }
     }
 }
+class ad{
+
+}
 //用实现接口的方式//后面可以值创建一个rl对象就可以不用静态
 //实现接口方式，使用synchronized实现线程同步
 class rl implements Runnable {
         //让多个线程共享num
      private  int num = 100;
      private  boolean loop = true;//退出循环
-    Object object = new Object();
+//    Object object = new Object();
+    ad a = new ad();
     //同步方法(静态的)的锁为当前本身
     //public synchronized static void m1(){}锁是在rl.class
 
@@ -64,7 +68,7 @@ class rl implements Runnable {
     //这时锁在this对象
     //也可以在代码块上写synchronized，同步代码块
     public  /*synchronized*/ void m() {// 同步方法，在同一个时刻，只能有一个线程来执行m方法
-        synchronized (/*this*/ object) {//互斥锁还是在this对象 //因为他们操作的是同一个对象object所以也可以实现线程锁
+        synchronized (/*this*/ a) {//互斥锁还是在this对象 //因为他们操作的是同一个对象object所以也可以实现线程锁
             if (num <= 0) {
                 System.out.println("售票结束");
                 loop = false;
