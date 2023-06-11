@@ -12,6 +12,9 @@ public class kc2 extends JFrame {
     //初始化一个构造器
     public kc2() {
         mp = new ht();//初始化界面
+        //将mp放入到Thread，并启动
+        Thread thread = new Thread(mp);
+        thread.start();
         this.add(mp);//把游戏的绘图区域加进去
         this.setSize(1000,750);//窗口大小
         this.addKeyListener(mp);//让JFrame 监听mp的键盘事件
