@@ -24,6 +24,12 @@ public class ht extends JPanel  implements KeyListener,Runnable  {
             EnemyTank enemyTank = new EnemyTank((100 * (i + 1)), 0);
             //指定方向
             enemyTank.setDirect(2);
+            //给enemy Tank加入一颗子弹
+           Shot shot = new Shot(enemyTank.getX() +20,enemyTank.getY()+60,enemyTank.getDirect());
+           //加入enemytank的Vector 成员
+            enemyTank.shots.add(shot);
+            //启动shot对象
+            new Thread(shot).start();
             //加入数组
             enemyTanks.add(enemyTank);
         }
@@ -46,6 +52,18 @@ public class ht extends JPanel  implements KeyListener,Runnable  {
             EnemyTank enemyTank = enemyTanks.get(i);
             //然后调用敌人坦克的方法
             drawTank(enemyTank.getX(),enemyTank.getY(),g,enemyTank.getDirect(),0);
+            //画出enemyTank 所有子弹
+            for (int j = 0; j <enemyTank.shots.size() ; j++) {
+                //取出当前enemytan的k子弹
+                Shot shot = enemyTank.shots.get(j);
+                //绘制
+                if (shot.isLive){ // isLive == true才绘制子弹
+                    g.draw3DRect(shot.x,shot.y,3,3,false);
+                } else {
+                    //从Vector移出子弹
+                    enemyTank.shots.remove(shot);
+                }
+            }
         }
     }
     //编写方法，画出坦克
