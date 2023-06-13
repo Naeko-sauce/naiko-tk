@@ -25,12 +25,15 @@ public class ht extends JPanel  implements KeyListener,Runnable  {
     public ht(){
         ho = new ziji(100,100);//初始化自己的坦克
         ho.setSpeed(2);
+        EnemyTank enemyTank;
         //初始化敌人的坦克
         for (int i = 0; i < enemyTankSize; i++) {
             //初始化敌人的坦克并且指定方向
-            EnemyTank enemyTank = new EnemyTank((100 * (i + 1)), 0);
+             enemyTank = new EnemyTank((100 * (i + 1)), 0);
             //指定方向
             enemyTank.setDirect(2);
+
+            new Thread(enemyTank).start();
             //给enemy Tank加入一颗子弹
            Shot shot = new Shot(enemyTank.getX() +20,enemyTank.getY()+60,enemyTank.getDirect());
            //加入enemytank的Vector 成员
@@ -40,6 +43,7 @@ public class ht extends JPanel  implements KeyListener,Runnable  {
             //加入数组
             enemyTanks.add(enemyTank);
         }
+
         //初始化图片对象
         /*
         * 这段代码是Java中获取图像资源的方法。
