@@ -2,11 +2,14 @@ package game;
 
 import java.util.Vector;
 
-//敌人的坦克
-public class EnemyTank extends tk implements Runnable{
-    //在敌人坦克类，使用Vector保存多个Shot，不用私有是因为懒得创建get和set
+/**
+ * 敌人的坦克
+ */
+public class EnemyTank extends Tk implements Runnable{
+    // 在敌人坦克类，使用Vector保存多个Shot，不用私有是因为懒得创建get和set
     Vector<Shot> shots = new Vector<>();
-    boolean isLeve = true;//控制敌人坦克是否销毁
+    // 控制敌人坦克是否销毁
+    boolean isLeve = true;
     public EnemyTank(int x, int y) {
         super(x, y);
     }
@@ -61,11 +64,13 @@ public class EnemyTank extends tk implements Runnable{
 //                        }
 //
 //                    }
-
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + getDirect());
             }
-   //然后随机改变坦克的方向
+            // 然后随机改变坦克的方向
             setDirect((int)(Math.random()*4));
-            //判断线程什么时候退出
+            // 判断线程什么时候退出
             if (!isLeve){
                 break;
             }

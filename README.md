@@ -10,5 +10,6 @@ java坦克大战小游戏和中间的某些练习
 
 * demo 坦克第一代原型
 * game 坦克第二代
+* practice 练习文件
 
 ![image-20230612150105023](https://wrxinyue.oss-cn-hongkong.aliyuncs.com/img/202306121501099.png)
