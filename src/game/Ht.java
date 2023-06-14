@@ -35,9 +35,7 @@ public class Ht extends JPanel implements KeyListener, Runnable {
             enemyTank = new EnemyTank((100 * (i + 1)), 0);
             // 指定方向
             enemyTank.setDirect(2);
-
             enemyTank.setSpeed(2);
-
             new Thread(enemyTank).start();
             // 给enemy Tank加入一颗子弹
             Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect());
@@ -145,35 +143,35 @@ public class Ht extends JPanel implements KeyListener, Runnable {
         // 根据坦克方向，来绘制坦克
         // direct 表示方向(0：表示向上，1表示向右，2表示向下，3表示向左)
         switch (direct) {
-            case 0://表示向上
+            case 0: // 表示向上
                 g.fill3DRect(x, y, 10, 60, false);//画出坦克左边的轮子
                 g.fill3DRect(x + 30, y, 10, 60, false);//画出坦克右边的轮子
                 g.fill3DRect(x + 10, y + 10, 20, 40, false);//画出坦克的盖子
                 g.fillOval(x + 10, y + 20, 20, 20);//画出坦克圆形盖子
                 g.drawLine(x + 20, y + 30, x + 20, y);
                 break;
-            case 1://表示向右
+            case 1: // 表示向右
                 g.fill3DRect(x, y, 60, 10, false);//画出坦克上边的轮子
                 g.fill3DRect(x, y + 30, 60, 10, false);//画出坦克下边的轮子
                 g.fill3DRect(x + 10, y + 10, 40, 20, false);//画出坦克的盖子
                 g.fillOval(x + 10, y + 10, 20, 20);//画出坦克圆形盖子
                 g.drawLine(x + 30, y + 20, x + 60, y + 20);
                 break;
-            case 2://向下
+            case 2: // 向下
                 g.fill3DRect(x, y, 10, 60, false);//画出坦克左边的轮子
                 g.fill3DRect(x + 30, y, 10, 60, false);//画出坦克右边的轮子
                 g.fill3DRect(x + 10, y + 10, 20, 40, false);//画出坦克的盖子
                 g.fillOval(x + 10, y + 20, 20, 20);//画出坦克圆形盖子
                 g.drawLine(x + 20, y + 30, x + 20, y + 60);
                 break;
-            case 3://向右
+            case 3: // 向右
                 g.fill3DRect(x, y, 60, 10, false);//画出坦克上边的轮子
                 g.fill3DRect(x, y + 30, 60, 10, false);//画出坦克下边的轮子
                 g.fill3DRect(x + 10, y + 10, 40, 20, false);//画出坦克的盖子
                 g.fillOval(x + 10, y + 10, 20, 20);//画出坦克圆形盖子
                 g.drawLine(x + 30, y + 20, x, y + 20);
                 break;
-            //如果没有匹配则会分配到default
+            // 如果没有匹配则会分配到default
             default:
                 System.out.println("暂时未处理");
         }
@@ -182,8 +180,8 @@ public class Ht extends JPanel implements KeyListener, Runnable {
     /**
      * 编写方法判断我方子弹是否击中地方坦克
      *
-     * @param s
-     * @param enemyTank
+     * @param s//表示子弹
+     * @param enemyTank//表示敌方坦克
      */
     public void hitTank(Shot s, EnemyTank enemyTank) {
         // 判断s是否击中坦克
@@ -231,7 +229,7 @@ public class Ht extends JPanel implements KeyListener, Runnable {
     /**
      * 处理键wdsa 按下的情况
      *
-     * @param e
+     * @param e 键盘处理事件
      */
     @Override
     public void keyPressed(KeyEvent e) {

@@ -3,7 +3,7 @@ package game;
 import java.util.Vector;
 
 /**
- * 敌人的坦克
+ * 敌人的坦克类
  */
 public class EnemyTank extends Tk implements Runnable{
     // 在敌人坦克类，使用Vector保存多个Shot，不用私有是因为懒得创建get和set
@@ -19,51 +19,55 @@ public class EnemyTank extends Tk implements Runnable{
         while (true){
             //根据坦克的方向来继续移动
             switch (getDirect()){
+                //向上
                 case 0:
 
-//                      for (int i = 0; i < 30; i++) {
+                      for (int i = 0; i < 30; i++) {
                            moveUP();
 
-//                        try {
-//                            Thread.sleep(50);
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//
-//                    }
-//                      break;
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                      break;
+                      //右边
                 case 1:
-//                    for (int i = 0; i < 30; i++) {
+                    for (int i = 0; i < 30; i++) {
                         moveRight();
-//                        try {
-//                            Thread.sleep(50);
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//
-//                    }
-//                    break;
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                    break;
+                    //下边
                 case 2:
-//                    for (int i = 0; i < 30; i++) {
+                    for (int i = 0; i < 30; i++) {
                         moveDown();
-//                        try {
-//                            Thread.sleep(50);
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//
-//                    }
-//                    break;
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                    break;
+//                    左边
                 case 3:
-//                    for (int i = 0; i < 30; i++) {
+                    for (int i = 0; i < 30; i++) {
                         moveLeft();
-//                        try {
-//                            Thread.sleep(50);
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//
-//                    }
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + getDirect());

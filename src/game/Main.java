@@ -1,8 +1,9 @@
 package game;
 
 import javax.swing.*;
-
-//界面
+/*
+* 坦克大战的界面
+* */
 public class Main extends JFrame {
     // 定义一个绘图区域
     Ht mp = null;
