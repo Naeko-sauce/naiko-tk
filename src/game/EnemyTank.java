@@ -23,8 +23,10 @@ public class EnemyTank extends Tk implements Runnable{
                 case 0:
 
                       for (int i = 0; i < 30; i++) {
-                           moveUP();
-
+                          // 判断坦克是否触碰到上边界
+                          if (getY() >=0) {
+                              moveUP();
+                          }
                         try {
                             Thread.sleep(50);
                         } catch (InterruptedException e) {
@@ -36,7 +38,10 @@ public class EnemyTank extends Tk implements Runnable{
                       //右边
                 case 1:
                     for (int i = 0; i < 30; i++) {
-                        moveRight();
+                        // 判断是否触碰到右边界
+                        if (getX() +60 <=1000) {
+                            moveRight();
+                        }
                         try {
                             Thread.sleep(50);
                         } catch (InterruptedException e) {
@@ -48,7 +53,10 @@ public class EnemyTank extends Tk implements Runnable{
                     //下边
                 case 2:
                     for (int i = 0; i < 30; i++) {
-                        moveDown();
+                        // 判断是否触碰到下边界
+                        if (getY() +60 <750) {
+                            moveDown();
+                        }
                         try {
                             Thread.sleep(50);
                         } catch (InterruptedException e) {
@@ -60,7 +68,10 @@ public class EnemyTank extends Tk implements Runnable{
 //                    左边
                 case 3:
                     for (int i = 0; i < 30; i++) {
-                        moveLeft();
+                        // 判断是否触碰到左边界
+                        if (getX()>0) {
+                            moveLeft();
+                        }
                         try {
                             Thread.sleep(50);
                         } catch (InterruptedException e) {

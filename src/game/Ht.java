@@ -27,7 +27,7 @@ public class Ht extends JPanel implements KeyListener, Runnable {
     public Ht() {
         // 初始化自己的坦克
         playerThank = new PlayerThank(100, 100);
-        playerThank.setSpeed(2);
+        playerThank.setSpeed(10);
         EnemyTank enemyTank;
         // 初始化敌人的坦克
         for (int i = 0; i < enemyTankSize; i++) {
@@ -236,17 +236,29 @@ public class Ht extends JPanel implements KeyListener, Runnable {
         if (e.getKeyCode() == KeyEvent.VK_W) {//按下w键
             //改变坦克的方向
             playerThank.setDirect(0);
-            //修改坦克的坐标
-            playerThank.moveUP();
+            // 当我放坦克向上到达边界的时候就停止移动
+            if (playerThank.getY() >= 0) {
+                //修改坦克的坐标
+                playerThank.moveUP();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_D) {//D键
             playerThank.setDirect(1);
-            playerThank.moveRight();
+            // 控制自己坦克向右移动到边界的时候就停止
+            if (playerThank.getX() +60 <= 1000) {
+                playerThank.moveRight();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_S) {//S键
             playerThank.setDirect(2);
-            playerThank.moveDown();
+            //判断坦克向下移动到边界就停止
+            if (playerThank.getY() +60 <= 750) {
+                playerThank.moveDown();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_A) {//A键
+            //判断是否移动到右边边界上
             playerThank.setDirect(3);
-            playerThank.moveLeft();
+            if (playerThank.getX() >= 0) {
+                playerThank.moveLeft();
+            }
         }
         //如果用户按下的是j，就发射
         if (e.getKeyCode() == KeyEvent.VK_J) {
