@@ -262,7 +262,11 @@ public class Ht extends JPanel implements KeyListener, Runnable {
         }
         //如果用户按下的是j，就发射
         if (e.getKeyCode() == KeyEvent.VK_J) {
-            playerThank.Shotziji();
+            // 判断自己坦克的子弹是否消亡
+            if (playerThank.shot == null || !playerThank.shot.isLive) {
+                //表示只有shot为空的时候才能重新创建子弹，子弹消亡并不代表ShotPlayerTank为空,然后在判断如果子弹没有存活也可以进入
+                playerThank.ShotPlayerTank();
+            }
         }
         //让面板重绘
         this.repaint();

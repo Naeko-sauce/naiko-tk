@@ -13,7 +13,7 @@ public class PlayerThank extends Tk {
     /**
      * 射击
      */
-    public void  Shotziji(){
+    public void ShotPlayerTank(){
         // 创建Shot对象，根据当前坦克ziji对象的位置和方向来创建Shot
         switch (getDirect()){
             // 向上
