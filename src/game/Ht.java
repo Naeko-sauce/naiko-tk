@@ -61,7 +61,6 @@ public class Ht extends JPanel implements KeyListener, Runnable {
         image2 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/bomb_2.gif"));
         image3 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/bomb_3.gif"));
     }
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -69,9 +68,20 @@ public class Ht extends JPanel implements KeyListener, Runnable {
         //画出坦克-封装方法
         drawTank(playerThank.getX(), playerThank.getY(), g, playerThank.getDirect(), 1);
         //画出ho射击子弹
-        if (playerThank.shot != null && playerThank.shot.isLive == true) {
+//        if (playerThank.shot != null && playerThank.shot.isLive == true) {
+////            g.fill3DRect(playerThank.shot.x,playerThank.shot.y,1,1,false);
+//            g.draw3DRect(playerThank.shot.x, playerThank.shot.y, 3, 3, false);
+//        }
+        //将hero的子弹集合 shots ，遍历取出绘制
+        for (int i = 0; i < playerThank.shots.size(); i++) {
+            Shot shot = playerThank.shots.get(i);
+             if (shot != null && shot.isLive) {
 //            g.fill3DRect(playerThank.shot.x,playerThank.shot.y,1,1,false);
-            g.draw3DRect(playerThank.shot.x, playerThank.shot.y, 3, 3, false);
+            g.draw3DRect(shot.x, shot.y, 3, 3, false);
+        }else {
+                 //如果该shot对象已经无效/销毁了，就从shots集合中拿掉
+                 playerThank.shots.remove(shot);
+             }
         }
         // 如果bombs集合中有对象就画出爆炸效果
         for (int i = 0; i < bombs.size(); i++) {
@@ -176,9 +186,27 @@ public class Ht extends JPanel implements KeyListener, Runnable {
                 System.out.println("暂时未处理");
         }
     }
-
+    /*
+    * 编写方法判断我方子弹是否击中地方坦克
+    * 如果我们的坦克可以发射多个子弹
+    * 在判断我方坦克是否击中敌人坦克时，就需要把我们的子弹集合中
+    * 所有的子弹取出来和敌人所有的坦克进行判断
+    *
+    * */
+public void hitEnemyTank(){
+    for (int j = 0; j < playerThank.shots.size(); j++) {
+        Shot shot = playerThank.shots.get(j);
+        if (shot != null && shot.isLive) {//判断自己的子弹是否还活着
+            //因为不知道你击中了敌人的哪个坦克所以说用遍历
+            for (int i = 0; i < enemyTanks.size(); i++) {
+                //取出敌人坦克
+                EnemyTank enemyTank = enemyTanks.get(i);
+                hitTank(playerThank.shot, enemyTank);
+            }
+        }
+    }
+}
     /**
-     * 编写方法判断我方子弹是否击中地方坦克
      *
      * @param s//表示子弹
      * @param enemyTank//表示敌方坦克
@@ -262,11 +290,13 @@ public class Ht extends JPanel implements KeyListener, Runnable {
         }
         //如果用户按下的是j，就发射
         if (e.getKeyCode() == KeyEvent.VK_J) {
-            // 判断自己坦克的子弹是否消亡
-            if (playerThank.shot == null || !playerThank.shot.isLive) {
-                //表示只有shot为空的时候才能重新创建子弹，子弹消亡并不代表ShotPlayerTank为空,然后在判断如果子弹没有存活也可以进入
-                playerThank.ShotPlayerTank();
-            }
+//            // 判断自己坦克的子弹是否消亡 ，这个是发射一颗子弹的情况
+//            if (playerThank.shot == null || !playerThank.shot.isLive) {
+//                //表示只有shot为空的时候才能重新创建子弹，子弹消亡并不代表ShotPlayerTank为空,然后在判断如果子弹没有存活也可以进入
+//                playerThank.ShotPlayerTank();
+//            }
+            // 调用这个方法创建一颗子弹
+            playerThank.ShotPlayerTank();
         }
         //让面板重绘
         this.repaint();
@@ -285,16 +315,17 @@ public class Ht extends JPanel implements KeyListener, Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            //判断是否击中了敌人坦克因为这个每隔一百秒就会执行一次所以把上面的扔下来
-            //这里要判断一下这个是否创建了
-            if (playerThank.shot != null && playerThank.shot.isLive) {//判断自己的子弹是否还活着
-                //因为不知道你击中了敌人的哪个坦克所以说用遍历
-                for (int i = 0; i < enemyTanks.size(); i++) {
-                    //取出敌人坦克
-                    EnemyTank enemyTank = enemyTanks.get(i);
-                    hitTank(playerThank.shot, enemyTank);
-                }
-            }
+//            //判断是否击中了敌人坦克因为这个每隔一百秒就会执行一次所以把上面的扔下来
+//            //这里要判断一下这个是否创建了,这里只能判断一颗子弹
+//            if (playerThank.shot != null && playerThank.shot.isLive) {//判断自己的子弹是否还活着
+//                //因为不知道你击中了敌人的哪个坦克所以说用遍历
+//                for (int i = 0; i < enemyTanks.size(); i++) {
+//                    //取出敌人坦克
+//                    EnemyTank enemyTank = enemyTanks.get(i);
+//                    hitTank(playerThank.shot, enemyTank);
+//                }
+//            }
+            hitEnemyTank();
             this.repaint();
         }
 
