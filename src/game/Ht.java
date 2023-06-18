@@ -26,7 +26,7 @@ public class Ht extends JPanel implements KeyListener, Runnable {
 
     public Ht() {
         // 初始化自己的坦克
-        playerThank = new PlayerThank(100, 100);
+        playerThank = new PlayerThank(500, 100);
         playerThank.setSpeed(10);
         EnemyTank enemyTank;
         // 初始化敌人的坦克
@@ -65,8 +65,11 @@ public class Ht extends JPanel implements KeyListener, Runnable {
     public void paint(Graphics g) {
         super.paint(g);
         g.fillRect(0, 0, 1000, 750);//填充矩形，默认黑色
-        //画出坦克-封装方法
-        drawTank(playerThank.getX(), playerThank.getY(), g, playerThank.getDirect(), 1);
+        //判断自己坦克是否被击中如果被击中则不画出来
+        if (playerThank != null && playerThank.isLive) {
+            //画出坦克-封装方法
+            drawTank(playerThank.getX(), playerThank.getY(), g, playerThank.getDirect(), 1);
+        }
         //画出ho射击子弹
 //        if (playerThank.shot != null && playerThank.shot.isLive == true) {
 ////            g.fill3DRect(playerThank.shot.x,playerThank.shot.y,1,1,false);
@@ -202,31 +205,52 @@ public void hitEnemyTank(){
                 //取出敌人坦克
                 EnemyTank enemyTank = enemyTanks.get(i);
                 hitTank(playerThank.shot, enemyTank);
+
             }
         }
     }
 }
+/*
+* 编写方法判断敌人坦克是否击中我的坦克
+*
+* */
+    public void hitplayerThank(){
+        //遍历敌人的所有坦克
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            //取出敌人坦克
+            EnemyTank enemyTank = enemyTanks.get(i);
+            //遍历敌人坦克的所有子弹对象
+            for (int j = 0; j < enemyTank.shots.size(); j++) {
+                //在取出子弹
+              Shot shot =  enemyTank.shots.get(j);
+                //判断shot 是否击中我方坦克
+                if (playerThank.isLive && shot.isLive){
+                    hitTank(shot,playerThank);
+                }
+            }
+        }
+    }
     /**
-     *
+     *后面将enemytank 改成tanke名称
      * @param s//表示子弹
-     * @param enemyTank//表示敌方坦克
+     * @param Tank//表示敌方坦克
      */
-    public void hitTank(Shot s, EnemyTank enemyTank) {
+    public void hitTank(Shot s, Tk Tank) {
         // 判断s是否击中坦克
         // enemyTank.getDirect()传入敌人坦克的上下左右进行判断
-        switch (enemyTank.getDirect()) {
+        switch (Tank.getDirect()) {
             // 坦克向上
             case 0:
                 // 坦克向下
             case 2:
-                if (s.x > enemyTank.getX() && s.x < enemyTank.getX() + 40 && s.y > enemyTank.getY() && s.y < enemyTank.getY() + 60) {
+                if (s.x > Tank.getX() && s.x < Tank.getX() + 40 && s.y > Tank.getY() && s.y < Tank.getY() + 60) {
                     // 如果满足以上条件就销毁子弹线程和坦克
                     s.isLive = false;
-                    enemyTank.isLeve = false;
+                    Tank.isLive = false;
                     // 当我的子弹击中敌人坦克后，将enemytan从kvector拿掉
-                    enemyTanks.remove(enemyTank);
+                    enemyTanks.remove(Tank);
                     // 创建bomb对象，加入到bobms集合
-                    Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
+                    Bomb bomb = new Bomb(Tank.getX(), Tank.getY());
                     // 创建好一个对象后加入到boms里面去
                     bombs.add(bomb);
                 }
@@ -235,17 +259,17 @@ public void hitEnemyTank(){
             case 1:
             // 向左
             case 3:
-                if (s.x > enemyTank.getX() && s.x < enemyTank.getX() + 60 && s.y > enemyTank.getY() && s.y < enemyTank.getY() + 40) {
+                if (s.x > Tank.getX() && s.x < Tank.getX() + 60 && s.y > Tank.getY() && s.y < Tank.getY() + 40) {
                     s.isLive = false;
-                    enemyTank.isLeve = false;
-                    enemyTanks.remove(enemyTank);
-                    Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
+                    Tank.isLive = false;
+                    enemyTanks.remove(Tank);
+                    Bomb bomb = new Bomb(Tank.getX(), Tank.getY());
                     // 创建好一个对象后加入到boms里面去
                     bombs.add(bomb);
                 }
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + enemyTank.getDirect());
+                throw new IllegalStateException("Unexpected value: " + Tank.getDirect());
         }
     }
 
@@ -326,6 +350,8 @@ public void hitEnemyTank(){
 //                }
 //            }
             hitEnemyTank();
+            //判断敌人坦克是否击中我们
+            hitplayerThank();
             this.repaint();
         }
 

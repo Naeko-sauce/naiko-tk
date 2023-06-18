@@ -5,6 +5,7 @@ package game;
  */
 public class Tk {
 
+//    public boolean isLeve;
     // 坦克的横坐标
     private int x;
 
@@ -13,7 +14,8 @@ public class Tk {
 
     // 坦克方向0，上1，右2，下3左
     private int direct;
-
+  //判断坦克是否存活
+    boolean isLive = true;
     // 控制坦克速度
     private int speed;
 

@@ -17,6 +17,28 @@ public class EnemyTank extends Tk implements Runnable{
     @Override
     public void run() {
         while (true){
+            //这里判断如果shots size() ==0 ，就创建一颗子弹，放入到shts集合，并启动
+            if (isLeve && shots.size() <20){
+                Shot s = null;
+                //判断坦克的方向创建对应的子弹
+                switch (getDirect()){
+                    case 0:
+                        s = new Shot(getX() +20,getY(),0);
+                        break;
+                    case 1:
+                        s = new Shot(getX()+60,getY()+20,1);
+                        break;
+                    case 2:
+                        s = new Shot(getX() +20,getY()+60,2);
+                        break;
+                    case 3:
+                        s = new Shot(getX(),getY()+20,3);
+                        break;
+                }
+                shots.add(s);
+                //启动子弹线程
+                new Thread(s).start();
+            }
             //根据坦克的方向来继续移动
             switch (getDirect()){
                 //向上
