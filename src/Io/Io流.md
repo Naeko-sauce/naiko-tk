@@ -13,3 +13,9 @@
 > new file(String parent,String child) //根据父目录+子路径构建
 > create New File创建新文件
 * 案列，在f盘下创建三个文件，用三个方式，案例File Create
+* 常用文件操作FIleInformation
+ >getName、 getAbsolutePath、 getParent、 length、 exists、isFile
+isDirectory
+ *目录的操作和文件删除Directory_
+ > makdir创建一级目录、makdirs创建多级目录、delete删除空目录或文件
+ > 
