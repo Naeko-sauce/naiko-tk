@@ -18,4 +18,10 @@
 isDirectory
  *目录的操作和文件删除Directory_
  > makdir创建一级目录、makdirs创建多级目录、delete删除空目录或文件
- > 
+ ## Io流体系图，常用类
+* input Stream：字节输入流
+* Input Stream抽象类是所有字节输入流的超类
+* Input Steam类的常用子类
+  > File input Steam：文件输入流
+  > BufferedInputStream: 缓冲字节输入流
+  > ObjectInputStream: 对象字节输入流

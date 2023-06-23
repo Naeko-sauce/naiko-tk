@@ -3,6 +3,7 @@ package Io.FIleInformation;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.InputStream;
 
 //获取文件信息
 public class FIleInformation {
