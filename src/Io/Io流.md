@@ -25,3 +25,6 @@ isDirectory
   > File input Steam：文件输入流
   > BufferedInputStream: 缓冲字节输入流
   > ObjectInputStream: 对象字节输入流
+## File Output Stream
+* 使用File Output Stream在a.txt中写入，如果文件不存在，先创建文件
+* 代码在IoFile Output Stream_
